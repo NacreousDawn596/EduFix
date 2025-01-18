@@ -1,0 +1,111 @@
+#rightdivwork>.form-container {
+    margin-left: 2vw;
+}
+
+.form-container {
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #8a7369;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    border-style: solid;
+    border-width: 2px;
+    height: 80%;
+    overflow-y: scroll;
+}
+
+.form-container h2 {
+    text-align: center;
+    color: #8a7369;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #8a7369;
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: #8a7369;
+}
+
+.form-group input[type="file"] {
+    border: none;
+}
+
+.form-group input[type="date"]::before {
+    content: attr(placeholder);
+    color: #8a7369;
+}
+
+.form-group button {
+    width: 100%;
+    padding: 10px;
+    background-color: #8a7369;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-group button:hover {
+    background-color: #725d53;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .form-container {
+        padding: 15px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 8px;
+    }
+
+    .form-group button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-container {
+        border: none;
+        box-shadow: none;
+        background-color: transparent;
+    }
+}
+
+#issuepic {
+    width: 50%;
+    height: auto;
+}
+
+#rightdivwork {
+    border-style: solid;
+    height: 90vh;
+    width: auto;
+    flex-grow: 1;
+    border-width: 0 0px 0 0;
+    margin: 15vh 0 0 2vw;
+}

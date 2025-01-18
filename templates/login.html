@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduFix Login</title>
+    <link rel="stylesheet" href="/static/login.css">
+</head>
+<body>
+    <div class="login-container">
+        <h1>Edu<span style="color: #c69a7b;">Fix</span></h1>
+        <div class="welcome">Bienvenue</div>
+
+        <form id="login-form" method="POST" action="{{ url_for("login") }}">
+            <div class="form-group">
+                <input type="email" id="email" name="email" placeholder="Email Address" required>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope" viewBox="0 0 16 16">
+                    <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4z"/>
+                    <path d="M.05 4.555L8 9.414l7.95-4.859A1.992 1.992 0 0 1 14 4H2a1.99 1.99 0 0 1-1.95.555z"/>
+                </svg>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock" viewBox="0 0 16 16">
+                    <path d="M8 1a4 4 0 0 1 4 4v3h1a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h1V5a4 4 0 0 1 4-4z"/>
+                    <path d="M3 9v5h10V9H3z"/>
+                </svg>
+            </div>
+            <button type="submit">Sign in</button>
+        </form>
+
+        <hr>
+
+        <a href="#">Créer un compte</a>
+        <a href="#">Mot de passe oublié</a>
+    </div>
+    <script src="/static/login.js"></script>
+</body>
+</html>

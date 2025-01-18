@@ -1,0 +1,13 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+__pycache__/
+bin/
+include/
+Include/
+issues_pics/*
+lib/
+Lib/
+lib64
+Scripts/
+test.py
+users.db
+issues.db

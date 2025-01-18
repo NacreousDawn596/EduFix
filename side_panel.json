@@ -1,0 +1,62 @@
+{
+    "administration": [
+        [
+            "Fiche de Besoin",
+            ["Creer une fiche de besoin", "/new_demand"],
+            ["Fiches de besoin recues", "/show_demands"]
+        ],
+        [
+            "Contact",
+            ["Technicien Infrastructures", "#"],
+            ["Technicien d'Atelier", "#"],
+            ["Service IT", "#"]
+        ]
+    ],
+    
+    "Chef": [
+        [
+            "Fiche de Besoin",
+            ["Creer une fiche de besoin", "/new_demand"],
+            ["Fiches de besoin recues", "/show_demands"]
+        ],
+        [
+            "Contact",
+            ["Technicien Infrastructures", "#"],
+            ["Technicien d'Atelier", "#"],
+            ["Service IT", "#"]
+        ]
+    ],
+
+    "responsable": [
+        [
+            "Fiche de Besoin",
+            ["Creer une fiche de besoin", "/new_demand"],
+            ["Fiches de besoin recues", "/show_demands"]
+        ],
+        [
+            "Contact",
+            ["Technicien Infrastructures", "#"]
+        ]
+    ],
+
+    "prof": [
+        [
+            "Fiche de Besoin",
+            ["Creer une fiche de besoin", "/new_demand"]
+        ],
+        [
+            "Contact",
+            ["Technicien Infrastructures", "#"],
+            ["Technicien d'Atelier", "#"],
+            ["Service IT", "#"]
+        ]
+    ],
+
+    "technicien": [
+        [
+            "Contact",
+            ["Responsable Maintenance", "#"],
+            ["Chefs de départements", "#"]
+        ]
+    ]
+}

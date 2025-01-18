@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduFix - Demandes</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@3.0.0-alpha/dist/tailwind.min.js"></script>
+    <link rel="stylesheet" href="/static/global.css">
+    <script src="/static/global.js"></script>
+</head>
+<body>
+    <section id="welcomingg">
+        <div id="bienvenuemr"><b>Bienvenue: </b> {{ username }}</div>
+        <h1 id="edufix">Edu<span style="color: #c69a7b;">Fix</span></h1>
+        <div id="toprightwelcomee">
+            <a href="/logout">logout</a>
+            <a href="#">Settings</a>
+            <div class="logooo">
+                <img src="/static/ensam_logo.png" alt="" srcset="">
+            </div>
+        </div>
+    </section>
+    <section id="theactualwork">
+        <div id="leftdivwork">
+            <div id="who"><div><img src="../static/person.png" alt="" srcset=""></div>{{ username }}</div>
+            <div>
+                <h1 id="accueil">Accueil:</h1>
+            </div>
+            {% for elements in side_panel %}
+                <div>
+                    <h1>{{elements[0]}}</h1>
+                    <ul>
+                        {% for element in elements[1::] %}
+                            <li onclick="window.location.href = '{{element[1]}}'">{{element[0]}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+        <div id="rightdivwork">
+            <h1>Demandes en attente:</h1>
+            <section>
+                <div class="container mx-auto table-wrapper">
+                    <div class="overflow-auto shadow-lg rounded-lg border border-gray-300">
+                        <table class="table-auto w-full border-collapse">
+                            <thead class="bg-gray-800 text-white">
+                                <tr>
+                                    <th class="px-5 py-2 border">Référence de la demande</th>
+                                    <th class="px-5 py-2 border">Professeur</th>
+                                    <th class="px-5 py-2 border">Lieu</th>
+                                    <th class="px-5 py-2 border">Date de soumission</th>
+                                    <th class="px-5 py-2 border">status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for issue in issues %}
+                                <tr class="odd:bg-white even:bg-gray-100">
+                                    <td class="px-5 py-2 border text-blue-600 underline cursor-pointer" onclick="window.location.href = '/demandes?id=' + '{{ issue['uuid'] }}'">{{ issue['uuid'] }}</td>
+                                    <td class="px-5 py-2 border text-center">{{ issue['sender'] }}</td>
+                                    <td class="px-5 py-2 border text-center">{{ issue['departement'] }}</td>
+                                    <td class="px-5 py-2 border text-center">{{ issue['date']  }}</td>
+                                    <td class="px-5 py-2 border text-center">{{ ['en attente', 'en cours', 'terminé'][issue['valid']] }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+</body>
+</html>

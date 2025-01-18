@@ -1,0 +1,49 @@
+{
+    "administration": [
+        [
+            "Suivre les demandes (infrastructures)",
+            ["Suivre les demandes en cours", "/demandes?status=en cours"],
+            ["Suivre les demandes en attente", "/demandes?status=en attente"],
+            ["Suivre les demandes traitees", "/demandes?status=traitees"]
+        ],
+        [
+            "Suivre les demandes (ateliers)",
+            ["Suivre les demandes en cours", "/demandes?status=en cours"],
+            ["Suivre les demandes en attente", "/demandes?status=en attente"],
+            ["Suivre les demandes traitees", "/demandes?status=traitees"]
+        ]
+    ],
+
+    "chef": [
+        ["Creer une nouvelle demande", "/new_demande"],
+        ["Suivre mes demandes", "/show_demands"],
+        ["Suivre les demandes du departement (infrastructures)"],
+        ["Suivre les demandes du département (ateliers)"]
+    ],
+
+    "responsable": [
+        [
+            "Suivre toutes les demandes (infrastructures)",
+            ["Suivre les demandes en cours", "/demandes?status=en cours"],
+            ["Suivre les demandes en attente", "/demandes?status=en attente"],
+            ["Suivre les demandes traitees", "/demandes?status=traitees"]
+        ]
+    ],
+
+    "prof": [
+        [
+            "Gestion des commandes",
+            ["Creer une nouvelle demande", "/new_demand"],
+            ["Suivre mes demandes", "show_demands"]
+        ]
+    ],
+
+    "technicien": [
+        [
+            "Gestion des problemes",
+            ["Liste des interventions"],
+            ["Liste des demandes affectées (non planifiées)"],
+            ["Liste des demandes affectées (planifiées)"]
+        ]
+    ]
+}

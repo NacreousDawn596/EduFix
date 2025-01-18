@@ -1,0 +1,21 @@
+#rightdivwork > section > * {
+    margin-left: 2vw;
+}
+
+#rightdivwork > section > h2 {
+    margin-top: 4vh;
+    font-size: 2rem;
+    color: #8a7369;
+}
+
+#rightdivwork > section > ul > li {
+    font-size: 1.3rem;
+    margin-top: 1vh;
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+
+#rightdivwork > section > ul > li:hover {
+    text-decoration: underline;
+    transition-duration: 0.2s;
+}

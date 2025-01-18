@@ -1,0 +1,20 @@
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 45%;
+    padding: 10px;
+    border: 1px solid #8a7369;
+    border-radius: 5px;
+    box-sizing: border-box;
+    color: #8a7369;
+}
+
+.form-container {
+    position: relative;
+    display: grid;
+}
+
+#issuepic {
+    position: absolute;
+    margin-left: 35vw;
+}

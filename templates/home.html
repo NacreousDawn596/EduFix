@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edufix - Home</title>
+    <link rel="stylesheet" href="../static/global.css">
+    <link rel="stylesheet" href="../static/home.css">
+    <script src="/static/global.js"></script>
+</head>
+<body>
+    <section id="welcomingg">
+        <div id="bienvenuemr"><b>Bienvenue: </b> {{ username }}</div>
+        <h1 id="edufix">Edu<span style="color: #c69a7b;">Fix</span></h1>
+        <div id="toprightwelcomee">
+            <a href="/logout">logout</a>
+            <a href="#">Settings</a>
+            <div class="logooo">
+                <img src="../static/ensam_logo.png" alt="" srcset="">
+            </div>
+        </div>
+    </section>
+    <section id="theactualwork">
+        <div id="leftdivwork">
+            <div id="who"><div><img src="../static/person.png" alt="" srcset=""></div>{{ username }}</div>
+            <div>
+                <h1 id="accueil">Accueil:</h1>
+            </div>
+            {% for elements in side_panel %}
+                <div>
+                    <h1>{{elements[0]}}</h1>
+                    <ul>
+                        {% for element in elements[1::] %}
+                            <li onclick="window.location.href = '{{element[1]}}'">{{element[0]}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+        <div id="rightdivwork">
+            <h1 id="accueil">Accueil:</h1>
+            <section>
+                {% for elements in layout %}
+                    <h2>{{elements[0]}}</h2>
+                    <ul>
+                        {% for element in elements[1::] %}
+                            <li onclick="window.location.href = '{{element[1]}}'">{{element[0]}}</li>
+                        {% endfor %}
+                    </ul>
+                {% endfor %}
+            </section>
+        </div>
+    </section>
+</body>
+</html>
