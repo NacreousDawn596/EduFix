@@ -4,6 +4,7 @@ bin/
 include/
 Include/
 issues_pics/*
+!issues_pics/.gitkeep
 lib/
 Lib/
 lib64
