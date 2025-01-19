@@ -18,6 +18,7 @@ img {
 .logooo {
     height: min(5vh, 5vw);
     width: fit-content;
+    max-width: 30vw;
     justify-self: end;
     margin: 2vh 2vw;
 }

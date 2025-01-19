@@ -40,9 +40,11 @@
         </div>
         <div id="rightdivwork">
             <div class="form-container">
-                <div id="issuepic">
-                    <img src="/issues_pics/{{ issue['photo'] }}" alt="issue pic">
-                </div>
+                {% if issue['pic'] %}
+                    <div id="issuepic">
+                        <img src="/issues_pics/{{ issue['photo'] }}" alt="issue pic">
+                    </div>
+                {% endif %}
                 <form id="reclamationForm", method="POST", action="{{ url_for("demandes") }}">
                     <div class="form-group">
                         <label for="semder">Nom du demandeur:</label>
@@ -92,20 +94,33 @@
                         <label for="description">Description du Problème:</label>
                         <textarea id="description" name="description" placeholder="Décrivez le problème" rows="4" disabled>{{ issue['description'] }}</textarea>
                     </div>
-
-                    <div class="form-group">
-                        <label for="technicien">Affecter un technicien:</label>
-                        <select id="technicien" name="technicien" required>
-                            <option value="">Choisir un technicien</option>
-                            <option value="Technicien Infrastructures">Technicien Infrastructures</option>
-                            <option value="Technicien d'Atelier">Technicien d'Atelier</option>
-                            <option value="Service IT">Service IT</option>
-                        </select>
-                    </div>
-                    {% if pos %}
+                    {% if pos and issue['valid'] == 0 %}
+                        <div class="form-group">
+                            <label for="technicien">Affecter un technicien:</label>
+                            <select id="technicien" name="technicien" required>
+                                <option value="">Choisir un technicien</option>
+                                <option value="Technicien Infrastructures">Technicien Infrastructures</option>
+                                <option value="Technicien d'Atelier">Technicien d'Atelier</option>
+                                <option value="Service IT">Service IT</option>
+                            </select>
+                        </div>
                         <div class="form-group">
                             <button type="submit">Valider</button>
                         </div>
+                    {% endif %}
+                    {% if technicien and issue['valid'] == 1 %}
+                        <div class="form-group">
+                            <label for="date">date:</label>
+                            <input type="text" id="date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit">traiter</button>
+                        </div>
+                    {% endif %}
+                    {% if technicien and issue['valid'] == 2 %}
+                    <div class="form-group">
+                        <button type="submit">traiter</button>
+                    </div>
                     {% endif %}
                 </form>
             </div>

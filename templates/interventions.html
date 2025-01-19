@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edufix- Nouvelle Demande</title>
+    <link rel="stylesheet" href="../static/global.css">
+    <link rel="stylesheet" href="../static/new_demand.css">
+    <link rel="stylesheet" href="../static/display_demands.css">
+    <script src="/static/global.js"></script>
+</head>
+<body>
+    <section id="welcomingg">
+        <div id="bienvenuemr"><b>Bienvenue: </b> {{ username }}</div>
+        <h1 id="edufix">Edu<span style="color: #c69a7b;">Fix</span></h1>
+        <div id="toprightwelcomee">
+            <a href="/logout">Logout</a>
+            <a href="#">Settings</a>
+            <div class="logooo">
+                <img src="../static/ensam_logo.png" alt="" srcset="">
+            </div>
+        </div>
+    </section>
+    <section id="theactualwork">
+        <div id="leftdivwork">
+            <div id="who"><div><img src="../static/person.png" alt="" srcset=""></div>{{ username }}</div>
+            <div>
+                <h1 id="accueil">Accueil:</h1>
+            </div>
+            {% for elements in side_panel %}
+                <div>
+                    <h1>{{elements[0]}}</h1>
+                    <ul>
+                        {% for element in elements[1::] %}
+                            <li onclick="window.location.href = '{{element[1]}}'">{{element[0]}}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+        <div id="rightdivwork">
+            <div class="form-container">
+                {% if issue['pic'] %}
+                    <div id="issuepic">
+                        <img src="/issues_pics/{{ issue['photo'] }}" alt="issue pic">
+                    </div>
+                {% endif %}
+                <form id="reclamationForm", method="POST", action="{{ url_for("demandes") }}">
+                    <div class="form-group">
+                        <label for="semder">Nom du demandeur:</label>
+                        <input type="text" id="semder" name="demder" disabled value="{{ issue['sender'] }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">date:</label>
+                        <input type="text" id="date" name="date" disabled value="{{ issue['date'] }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phonum">Numero de Telephone:</label>
+                        <input type="text" id="phonum" name="phonum" disabled value="{{ issue['numphone'] }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Email">Email:</label>
+                        <input type="text" id="email" name="email" disabled value="{{ issue['email'] }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="uuidd">Id:</label>
+                        <input type="text" id="uuidd" name="uuidd" value="{{ issue['uuid'] }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="departement">Département:</label>
+                        <select id="departement" name="departement" disabled>
+                            <option value="">{{issue['departement']}}</option>
+                        </select>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="salle">numéro de la salle:</label>
+                        <input type="text" id="salle" name="salle" disabled value="{{ issue['salle'] }}">
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="typeProbleme">Type du Problème:</label>
+                        <select id="typeProbleme" name="typeProbleme" disabled>
+                            <option value="">{{ issue['type'] }}</option>
+                        </select>
+                    </div>
+            
+                    <div class="form-group">
+                        <label for="description">Description du Problème:</label>
+                        <textarea id="description" name="description" placeholder="Décrivez le problème" rows="4" disabled>{{ issue['description'] }}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="technicien">Affecter un technicien:</label>
+                        <select id="technicien" name="technicien" required>
+                            <option value="">Choisir un technicien</option>
+                            <option value="Technicien Infrastructures">Technicien Infrastructures</option>
+                            <option value="Technicien d'Atelier">Technicien d'Atelier</option>
+                            <option value="Service IT">Service IT</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Affecter une date:</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">Traitee</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </div>
+    <script>
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault();
+            const formData = new FormData(form);
+            const formObject = {};
+            formData.forEach((value, key) => {
+                formObject[key] = value;
+            });
+
+            console.log(formObject)
+        
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData
+                });
+        
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        window.location.href = "/show_demands"; 
+                    } else {
+                        console.log("Error: Data submission failed.");
+                    }
+                } else {
+                    console.error("Response not OK", response.status);
+                }
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        });
+        
+    </script>
+     
+</body>
+</html>

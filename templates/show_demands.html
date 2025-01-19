@@ -39,7 +39,7 @@
             {% endfor %}
         </div>
         <div id="rightdivwork">
-            <h1>Demandes en attente:</h1>
+            <h1>Demandes {{ request.args.get('status') or ""}}:</h1>
             <section>
                 <div class="container mx-auto table-wrapper">
                     <div class="overflow-auto shadow-lg rounded-lg border border-gray-300">
@@ -60,7 +60,7 @@
                                     <td class="px-5 py-2 border text-center">{{ issue['sender'] }}</td>
                                     <td class="px-5 py-2 border text-center">{{ issue['departement'] }}</td>
                                     <td class="px-5 py-2 border text-center">{{ issue['date']  }}</td>
-                                    <td class="px-5 py-2 border text-center">{{ ['en attente', 'en cours', 'terminé'][issue['valid']] }}</td>
+                                    <td class="px-5 py-2 border text-center">{{ ['en attente', 'en cours', 'en cours', 'terminé'][issue['valid']] if session['pos'] != -1 else ['non planifier', 'non planifier', 'planifier', 'traiter'][issue['valid']]}}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>

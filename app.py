@@ -23,8 +23,8 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 ranks = {
     3: "administration",
-    2: "chef",
-    1: "responsable",
+    2: "chef", # dep dyalo
+    1: "responsable", # suivi sans creer
     0: "prof",
     -1: "technicien" 
 }
@@ -113,33 +113,35 @@ def new_demand():
     if "email" in session and session['pos'] >= 0:
         if request.method == 'POST':
             file = request.files.get('photo')
-            print(file.filename)
-            allowed, extension = allowed_file(file.filename)
-            if file and allowed:
-                filename = f"{time.time()}.{extension}"
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                print(filename)
-                update_db('INSERT INTO issues VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', args=[str(uuid.uuid4()).split("-")[0], session['email'], session['phonenum'], datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), request.form.get('departement'), request.form.get('salle'), request.form.get('typeProbleme'), request.form.get('description'), filename, session['username'], 0, ""], file='issues.db')
-                # return jsonify({'success': True, 'message': 'Database updated successfully :3'})
-                return redirect(url_for('show_demands'))
+            if file:
+                print(file.filename)
+                allowed, extension = allowed_file(file.filename)
+                if file and allowed:
+                    filename = f"{time.time()}.{extension}"
+                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                    print(filename)
             else:
-                return jsonify({'failed': True, 'message': 'Filetype not allowed.'})
+                filename = ""        
+            update_db('INSERT INTO issues VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', args=[str(uuid.uuid4()).split("-")[0], session['email'], session['phonenum'], datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), request.form.get('departement'), request.form.get('salle'), request.form.get('typeProbleme'), request.form.get('description'), filename, session['username'], 0, "", ""], file='issues.db')
+            return redirect(url_for('show_demands'))
         return render_template('new_demand.html', username=session.get('username'), email=session.get('email'), side_panel=side_panel[session['position']])
     else:
         return redirect(url_for('login'))
 
 @app.route("/show_demands", methods=['GET', 'POST'])
 def show_demands():
-    status = {"en attente": "= 0", "en cours": "= 1", "traitees": "= 2", None: "IS NOT NULL"}[request.args.get('status')]
-    if "email" in session and session['pos'] >= 0:
-        if session['position'] == "prof":
-            issues = query_db(f'SELECT * FROM issues WHERE email = ? AND valid {status}', [session['email']], one=False, file='issues.db')
+    status = {"en attente": "= 0", "en cours": "= 1", "traitees": "= 3", "non planifier": "IN ('0','1')", "planifier": "= 2", None: "IS NOT NULL"}[request.args.get('status')]
+    if "email" in session:
+        if session['position'] == "technicien":
+            issues = query_db(f'SELECT * FROM issues WHERE technicien = ? AND valid {status}', [session['username']], one=False, file='issues.db')
         elif session['position'] == "responsable":
-            issues = query_db(f'SELECT * FROM issues WHERE email = ? AND departement = ? AND valid {status}', [session['email'], session['dep']], one=False, file='issues.db')
+            issues = query_db(f'SELECT * FROM issues WHERE valid {status}', one=False, file='issues.db')
+        elif session['position'] == "prof":
+            issues = query_db(f'SELECT * FROM issues WHERE email = ? AND valid {status}', [session['email']], one=False, file='issues.db')
         else:
             issues = query_db(f'SELECT * FROM issues WHERE valid {status}', one=False, file='issues.db')
             
-        return render_template('show_demands.html', username=session.get('username'), email=session.get('email'), side_panel=side_panel[session['position']], issues=issues, has_power = session['pos'] >= 2)
+        return render_template('show_demands.html', username=session.get('username'), email=session.get('email'), side_panel=side_panel[session['position']], issues=issues or [], has_power = session['pos'] >= 2, request=request, session=session)
     else:
         return redirect(url_for('login'))
     
@@ -150,14 +152,35 @@ def demandes():
         if not id and request.method != 'POST':
             return redirect(url_for('show_demands'))
 
-        if request.method == 'POST' and session['pos'] >= 2:
+        if request.method == 'POST' and session['pos'] >= 1:
             try:
                 technicien = request.form.get('technicien')
                 id = request.form.get('uuidd')
                 if technicien and id:
+                    
                     update_db("UPDATE issues SET valid = ?, technicien = ? WHERE uuid = ?", 
                               args=(1, technicien, id), 
                               file="issues.db")
+                    return redirect(url_for('show_demands'))
+                else:
+                    return jsonify({'success': False, 'message': 'Missing required data'}), 400
+            except Exception as e:
+                return jsonify({'success': False, 'message': str(e)}), 500
+            
+        if request.method == 'POST' and session['pos'] == -1:
+            try:
+                id = request.form.get('uuidd')
+                if id:
+                    issue = query_db('SELECT * FROM issues WHERE uuid = ?', [id], one=True, file='issues.db')
+                    if issue['valid'] == 1:
+                        print(2, request.form.get("date"), id)
+                        update_db("UPDATE issues SET valid = ?, dueto = ? WHERE uuid = ?", 
+                                args=(2, request.form.get("date"), id), 
+                                file="issues.db")
+                    elif issue['valid'] == 2:
+                        update_db("UPDATE issues SET valid = ?, dueto = ? WHERE uuid = ?", 
+                                args=(3, "", id), 
+                                file="issues.db")
                     return redirect(url_for('show_demands'))
                 else:
                     return jsonify({'success': False, 'message': 'Missing required data'}), 400
@@ -167,25 +190,15 @@ def demandes():
         issue = query_db('SELECT * FROM issues WHERE uuid = ?', [id], one=True, file='issues.db')
         if issue:
             return render_template('demandes.html', username=session.get('username'), email=session.get('email'), 
-                                   side_panel=side_panel[session['position']], issue=issue, pos=session['pos'] >= 2)
+                                   side_panel=side_panel[session['position']], issue=issue, pos=session['pos'] >= 1, technicien = session['pos'] == -1)
         else:
             return redirect(url_for('login'))
-    else:
-        return redirect(url_for('login'))
-
-
-    
-@app.route("/technicien", methods=['GET', 'POST'])
-def technicien():
-    if "email" in session and session['pos'] == -1:
-        issues = query_db('SELECT * FROM issues WHERE valid = ? AND technicien = ? AND valid = ?', [1, session['username'], 0], one=False, file='issues.db')
-        return render_template('show_demands.html', username=session.get('username'), email=session.get('email'), side_panel=side_panel[session['position']], issues=issues)
     else:
         return redirect(url_for('login'))
     
 @app.route("/issues_pics/<filename>")
 def issues_pics(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
-    
+
 if __name__ == '__main__':
     socketio.run(app, host="localhost", port=5002, debug=True)

@@ -7,13 +7,13 @@
         ],
         [
             "Contact",
-            ["Technicien Infrastructures", "#"],
-            ["Technicien d'Atelier", "#"],
-            ["Service IT", "#"]
+            ["Technicien Infrastructures", "mailto:aferiad.kamal@proton.me"],
+            ["Technicien d'Atelier", "mailto:aferiad.kamal@proton.me"],
+            ["Service IT", "mailto:aferiad.kamal@proton.me"]
         ]
     ],
     
-    "Chef": [
+    "chef": [
         [
             "Fiche de Besoin",
             ["Creer une fiche de besoin", "/new_demand"],
@@ -21,9 +21,9 @@
         ],
         [
             "Contact",
-            ["Technicien Infrastructures", "#"],
-            ["Technicien d'Atelier", "#"],
-            ["Service IT", "#"]
+            ["Technicien Infrastructures", "mailto:aferiad.kamal@proton.me"],
+            ["Technicien d'Atelier", "mailto:aferiad.kamal@proton.me"],
+            ["Service IT", "mailto:aferiad.kamal@proton.me"]
         ]
     ],
 
@@ -35,7 +35,7 @@
         ],
         [
             "Contact",
-            ["Technicien Infrastructures", "#"]
+            ["Technicien Infrastructures", "mailto:aferiad.kamal@proton.me"]
         ]
     ],
 
@@ -46,17 +46,17 @@
         ],
         [
             "Contact",
-            ["Technicien Infrastructures", "#"],
-            ["Technicien d'Atelier", "#"],
-            ["Service IT", "#"]
+            ["Technicien Infrastructures", "mailto:aferiad.kamal@proton.me"],
+            ["Technicien d'Atelier", "mailto:aferiad.kamal@proton.me"],
+            ["Service IT", "mailto:aferiad.kamal@proton.me"]
         ]
     ],
 
     "technicien": [
         [
             "Contact",
-            ["Responsable Maintenance", "#"],
-            ["Chefs de départements", "#"]
+            ["Responsable Maintenance", "mailto:aferiad.kamal@proton.me"],
+            ["Chefs de départements", "mailto:aferiad.kamal@proton.me"]
         ]
     ]
 }

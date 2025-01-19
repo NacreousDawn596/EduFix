@@ -11,7 +11,7 @@ conn = sqlite3.connect(db_path)
 c = conn.cursor()
 
 c.execute('''CREATE TABLE issues
-             (uuid TEXT PRIMARY KEY, email TEXT, numphone TEXT, date TEXT, departement TEXT, salle TEXT, type TEXT, description TEXT, photo TEXT, sender TEXT, valid INT, technicien TEXT)''')
+             (uuid TEXT PRIMARY KEY, email TEXT, numphone TEXT, date TEXT, departement TEXT, salle TEXT, type TEXT, description TEXT, photo TEXT, sender TEXT, valid INT, technicien TEXT, dueto TEXT)''')
 
 conn.commit()
 conn.close()
