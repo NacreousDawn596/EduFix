@@ -84,7 +84,7 @@ def login():
             session['position'] = ranks[user['position']]
             session['phonenum'] = user['phonenum']
             session['session_id'] = session_id
-            session['dep'] = user['dep']
+            session['dep'].lower() = user['dep']
             session['current_issue'] = ""
             
             logging.debug(f"User {email} logged in successfully.")
@@ -145,7 +145,7 @@ def show_demands():
         elif session['position'] == "responsable":
             issues = query_db(f"SELECT * FROM issues WHERE valid {status} AND typpe = ?", [1], one=False, file='issues.db')
         elif session['position'] == "chef":
-            issues = query_db(f"SELECT * FROM issues WHERE (departement = ? OR typpe = ?) AND valid {status}", [session['dep'], 2], one=False, file='issues.db')
+            issues = query_db(f"SELECT * FROM issues WHERE (departement = ? OR typpe = ?) AND valid {status}", [session['dep'].lower(), 2], one=False, file='issues.db')
         elif session['position'] == "prof":
             issues = query_db(f'SELECT * FROM issues WHERE email = ? AND valid {status}', [session['email']], one=False, file='issues.db')
         else:
