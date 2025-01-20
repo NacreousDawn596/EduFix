@@ -40,7 +40,7 @@
         </div>
         <div id="rightdivwork">
             <div class="form-container">
-                {% if issue['pic'] %}
+                {% if issue['pic'] == "" %}
                     <div id="issuepic">
                         <img src="/issues_pics/{{ issue['photo'] }}" alt="issue pic">
                     </div>

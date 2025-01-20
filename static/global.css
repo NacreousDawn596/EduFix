@@ -149,7 +149,7 @@ a {
 .table-wrapper {
     overflow-x: auto;
     max-width: 100%;
-    overflow-y: auto;
+    overflow-y: scroll;
     scrollbar-width: 0;
 }
 
