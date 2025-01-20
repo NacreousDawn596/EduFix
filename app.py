@@ -116,6 +116,7 @@ def new_demand():
     if "email" in session and session['pos'] >= 0:
         if request.method == 'POST':
             file = request.files.get('photo')
+            print(file, "eee")
             if file:
                 print(file.filename)
                 allowed, extension = allowed_file(file.filename)

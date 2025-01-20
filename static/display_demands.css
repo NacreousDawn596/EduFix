@@ -17,4 +17,5 @@
 #issuepic {
     position: absolute;
     margin-left: 35vw;
+    align-self: center;
 }
