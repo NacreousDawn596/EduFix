@@ -140,9 +140,9 @@ def show_demands():
         if session['position'] == "technicien":
             issues = query_db(f'SELECT * FROM issues WHERE technicien = ? AND valid {status}', [session['username']], one=False, file='issues.db')
         elif session['position'] == "responsable":
-            issues = query_db(f"SELECT * FROM issues WHERE valid {status} AND type {typpe}", one=False, file='issues.db')
+            issues = query_db(f"SELECT * FROM issues WHERE valid {status} AND typpe {typpe}", one=False, file='issues.db')
         elif session['position'] == "chef":
-            issues = query_db(f"SELECT * FROM issues WHERE departement = ? AND valid {status} AND type {typpe}", [session['dep']], one=False, file='issues.db')
+            issues = query_db(f"SELECT * FROM issues WHERE departement = ? AND valid {status} AND typpe {typpe}", [session['dep']], one=False, file='issues.db')
         elif session['position'] == "prof":
             issues = query_db(f'SELECT * FROM issues WHERE email = ? AND valid {status}', [session['email']], one=False, file='issues.db')
         else:
