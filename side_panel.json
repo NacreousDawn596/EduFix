@@ -7,9 +7,9 @@
         ],
         [
             "Contact",
-            ["Technicien Infrastructures", "mailto:aferiad.kamal@proton.me"],
-            ["Technicien d'Atelier", "mailto:aferiad.kamal@proton.me"],
-            ["Service IT", "mailto:aferiad.kamal@proton.me"]
+            ["Technicien Infrastructures", "mailto:technicien@gmail.com"],
+            ["Technicien d'Atelier", "mailto:technicien@gmail.com"],
+            ["Service IT", "mailto:technicien@gmail.com"]
         ]
     ],
     
@@ -21,9 +21,9 @@
         ],
         [
             "Contact",
-            ["Technicien Infrastructures", "mailto:aferiad.kamal@proton.me"],
-            ["Technicien d'Atelier", "mailto:aferiad.kamal@proton.me"],
-            ["Service IT", "mailto:aferiad.kamal@proton.me"]
+            ["Technicien Infrastructures", "mailto:technicien@gmail.com"],
+            ["Technicien d'Atelier", "mailto:technicien@gmail.com"],
+            ["Service IT", "mailto:technicien@gmail.com"]
         ]
     ],
 
@@ -35,7 +35,7 @@
         ],
         [
             "Contact",
-            ["Technicien Infrastructures", "mailto:aferiad.kamal@proton.me"]
+            ["Technicien Infrastructures", "mailto:technicien@gmail.com"]
         ]
     ],
 
@@ -46,25 +46,24 @@
         ],
         [
             "Contact",
-            ["Technicien Infrastructures", "mailto:aferiad.kamal@proton.me"],
-            ["Technicien d'Atelier", "mailto:aferiad.kamal@proton.me"],
-            ["Service IT", "mailto:aferiad.kamal@proton.me"]
+            ["Technicien Infrastructures", "mailto:technicien@gmail.com"],
+            ["Technicien d'Atelier", "mailto:technicien@gmail.com"]
         ]
     ],
 
     "technicien infrastructures": [
         [
             "Contact",
-            ["Responsable Maintenance", "mailto:aferiad.kamal@proton.me"],
-            ["Chefs de départements", "mailto:aferiad.kamal@proton.me"]
+            ["Responsable Maintenance", "mailto:technicien@gmail.com"],
+            ["Chefs de départements", "mailto:technicien@gmail.com"]
         ]
     ],
 
     "technicien atelier": [
         [
             "Contact",
-            ["Responsable Maintenance", "mailto:aferiad.kamal@proton.me"],
-            ["Chefs de départements", "mailto:aferiad.kamal@proton.me"]
+            ["Responsable Maintenance", "mailto:technicien@gmail.com"],
+            ["Chefs de départements", "mailto:technicien@gmail.com"]
         ]
     ]
 }
