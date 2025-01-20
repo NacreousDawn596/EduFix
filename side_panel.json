@@ -52,7 +52,15 @@
         ]
     ],
 
-    "technicien": [
+    "technicien infrastructures": [
+        [
+            "Contact",
+            ["Responsable Maintenance", "mailto:aferiad.kamal@proton.me"],
+            ["Chefs de départements", "mailto:aferiad.kamal@proton.me"]
+        ]
+    ],
+
+    "technicien atelier": [
         [
             "Contact",
             ["Responsable Maintenance", "mailto:aferiad.kamal@proton.me"],

@@ -149,7 +149,14 @@ a {
 .table-wrapper {
     overflow-x: auto;
     max-width: 100%;
+    overflow-y: scroll;
+    scrollbar-width: 0;
 }
+
+.table-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;

@@ -26,7 +26,8 @@ ranks = {
     2: "chef", # dep dyalo
     1: "responsable", # suivi sans creer
     0: "prof",
-    -1: "technicien" 
+    -1: "technicien infrastructures",
+    -2: "technicien atelier", 
 }
 
 logging.basicConfig(level=logging.DEBUG)
@@ -57,7 +58,9 @@ def update_db(query, file="", args=()):
             logging.debug(f"udb Executed update: {query} with args: {args}")
     except sqlite3.Error as e:
         logging.error(f"Database error: {e}")
-        
+
+techniciens = query_db(f'SELECT * FROM issues WHERE position IN (-1, -2)', one=False, file='issues.db')
+
 def allowed_file(filename):
     ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS, filename.rsplit('.', 1)[-1].lower()
@@ -123,7 +126,8 @@ def new_demand():
             else:
                 filename = ""        
             update_db('INSERT INTO issues VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', args=[str(uuid.uuid4()).split("-")[0], session['email'], session['phonenum'], datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), request.form.get('departement'), request.form.get('salle'), request.form.get('typeProbleme'), request.form.get('description'), filename, session['username'], 0, "", ""], file='issues.db')
-            return redirect(url_for('show_demands'))
+            # return redirect(url_for('home'))
+            return jsonify({'success': True, 'newPath': url_for('home')})
         return render_template('new_demand.html', username=session.get('username'), email=session.get('email'), side_panel=side_panel[session['position']])
     else:
         return redirect(url_for('login'))
@@ -135,7 +139,9 @@ def show_demands():
         if session['position'] == "technicien":
             issues = query_db(f'SELECT * FROM issues WHERE technicien = ? AND valid {status}', [session['username']], one=False, file='issues.db')
         elif session['position'] == "responsable":
-            issues = query_db(f'SELECT * FROM issues WHERE valid {status}', one=False, file='issues.db')
+            issues = query_db(f"SELECT * FROM issues WHERE valid {status} AND sender NOT LIKE '%Technicien%'", one=False, file='issues.db')
+        elif session['position'] == "chef":
+            issues = query_db(f"SELECT * FROM issues WHERE departement = ? AND valid {status} AND sender LIKE '%Technicien%'", [session['dep']], one=False, file='issues.db')
         elif session['position'] == "prof":
             issues = query_db(f'SELECT * FROM issues WHERE email = ? AND valid {status}', [session['email']], one=False, file='issues.db')
         else:
@@ -150,7 +156,7 @@ def demandes():
     if "email" in session:
         id = request.args.get('id')
         if not id and request.method != 'POST':
-            return redirect(url_for('show_demands'))
+            return redirect(url_for('home'))
 
         if request.method == 'POST' and session['pos'] >= 1:
             try:
@@ -161,13 +167,13 @@ def demandes():
                     update_db("UPDATE issues SET valid = ?, technicien = ? WHERE uuid = ?", 
                               args=(1, technicien, id), 
                               file="issues.db")
-                    return redirect(url_for('show_demands'))
+                    return redirect(url_for('home'))
                 else:
                     return jsonify({'success': False, 'message': 'Missing required data'}), 400
             except Exception as e:
                 return jsonify({'success': False, 'message': str(e)}), 500
             
-        if request.method == 'POST' and session['pos'] == -1:
+        if request.method == 'POST' and session['pos'] <= -1:
             try:
                 id = request.form.get('uuidd')
                 if id:
@@ -181,7 +187,7 @@ def demandes():
                         update_db("UPDATE issues SET valid = ?, dueto = ? WHERE uuid = ?", 
                                 args=(3, "", id), 
                                 file="issues.db")
-                    return redirect(url_for('show_demands'))
+                    return redirect(url_for('home'))
                 else:
                     return jsonify({'success': False, 'message': 'Missing required data'}), 400
             except Exception as e:
@@ -190,7 +196,7 @@ def demandes():
         issue = query_db('SELECT * FROM issues WHERE uuid = ?', [id], one=True, file='issues.db')
         if issue:
             return render_template('demandes.html', username=session.get('username'), email=session.get('email'), 
-                                   side_panel=side_panel[session['position']], issue=issue, pos=session['pos'] >= 1, technicien = session['pos'] == -1)
+                                   side_panel=side_panel[session['position']], issue=issue, pos=session['pos'] >= 1, technicien = session['pos'] == -1, techniciens = [i for i in techniciens if i['position'] == -1] if session['pos'] == 1 else [i for i in techniciens if i['position'] == -2])
         else:
             return redirect(url_for('login'))
     else:

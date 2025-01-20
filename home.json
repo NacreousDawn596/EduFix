@@ -40,7 +40,21 @@
         ]
     ],
 
-    "technicien": [
+    "technicien infrastructures": [
+        [
+            "Gestion des problemes",
+            ["Liste des interventions", "/show_demands"],
+            ["Liste des demandes affectées (non planifiées)", "/show_demands?status=non planifier"],
+            ["Liste des demandes affectées (planifiées)", "/show_demands?status=planifier"]
+        ]
+    ],
+
+    "technicien atelier": [
+        [
+            "Gestion des commandes",
+            ["Creer une nouvelle demande", "/new_demand"],
+            ["Suivre mes demandes", "show_demands"]
+        ],
         [
             "Gestion des problemes",
             ["Liste des interventions", "/show_demands"],

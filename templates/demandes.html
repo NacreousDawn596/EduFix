@@ -99,9 +99,9 @@
                             <label for="technicien">Affecter un technicien:</label>
                             <select id="technicien" name="technicien" required>
                                 <option value="">Choisir un technicien</option>
-                                <option value="Technicien Infrastructures">Technicien Infrastructures</option>
-                                <option value="Technicien d'Atelier">Technicien d'Atelier</option>
-                                <option value="Service IT">Service IT</option>
+                                {% for tech in techniciens %}
+                                <option value="{{ tech['username'] }}">{{ tech['username'] }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="form-group">
@@ -148,7 +148,7 @@
                     const data = await response.json();
                     
                     if (data.success) {
-                        window.location.href = "/show_demands"; 
+                        window.location.href = "/"; 
                     } else {
                         console.log("Error: Data submission failed.");
                     }
