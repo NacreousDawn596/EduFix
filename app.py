@@ -113,7 +113,7 @@ def logout():
 
 @app.route("/new_demand", methods=['GET', 'POST'])
 def new_demand():
-    if "email" in session and session['pos'] >= 0:
+    if "email" in session and (session['pos'] >= 0 or session['pos'] == -2):
         if request.method == 'POST':
             file = request.files.get('photo')
             print(file, "eee")
@@ -201,7 +201,7 @@ def demandes():
         if issue:
             print(session['dep'], issue['departement'].lower())
             return render_template('demandes.html', username=session.get('username'), email=session.get('email'), 
-                                   side_panel=side_panel[session['position']], issue=issue, pos=session['pos'] >= 1, technicien = session['pos'] == -1, techniciens = [i for i in techniciens if i['position'] == -1] if session['pos'] == 1 else [i for i in techniciens if i['position'] == -2 and i['at'] == session['dep'].lower()], session=session)
+                                   side_panel=side_panel[session['position']], issue=issue, pos=session['pos'] >= 1, technicien = session['pos'] <= -1, techniciens = [i for i in techniciens if i['position'] == -1] if session['pos'] == 1 else [i for i in techniciens if i['position'] == -2 and i['at'] == session['dep'].lower()], session=session)
         else:
             return redirect(url_for('login'))
     else:
