@@ -200,7 +200,7 @@ def demandes():
         issue = query_db('SELECT * FROM issues WHERE uuid = ?', [id], one=True, file='issues.db')
         if issue:
             return render_template('demandes.html', username=session.get('username'), email=session.get('email'), 
-                                   side_panel=side_panel[session['position']], issue=issue, pos=session['pos'] >= 1 and session['dep'] == issue['department'], technicien = session['pos'] == -1, techniciens = [i for i in techniciens if i['position'] == -1] if session['pos'] == 1 else [i for i in techniciens if i['position'] == -2 and i['at'] == session['dep']], session=session)
+                                   side_panel=side_panel[session['position']], issue=issue, pos=session['pos'] >= 1 and session['dep'] == issue['departement'], technicien = session['pos'] == -1, techniciens = [i for i in techniciens if i['position'] == -1] if session['pos'] == 1 else [i for i in techniciens if i['position'] == -2 and i['at'] == session['dep']], session=session)
         else:
             return redirect(url_for('login'))
     else:
