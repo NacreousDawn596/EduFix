@@ -148,13 +148,7 @@
                 });
         
                 if (response.ok) {
-                    const data = await response.json();
-                    
-                    if (data.success) {
-                        window.location.href = "/"; 
-                    } else {
-                        console.log("Error: Data submission failed.");
-                    }
+                    window.location.href = "/"; 
                 } else {
                     console.error("Response not OK", response.status);
                 }
