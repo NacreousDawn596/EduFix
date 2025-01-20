@@ -199,6 +199,7 @@ def demandes():
 
         issue = query_db('SELECT * FROM issues WHERE uuid = ?', [id], one=True, file='issues.db')
         if issue:
+            print(session['dep'], issue['departement'].lower())
             return render_template('demandes.html', username=session.get('username'), email=session.get('email'), 
                                    side_panel=side_panel[session['position']], issue=issue, pos=session['pos'] >= 1, technicien = session['pos'] == -1, techniciens = [i for i in techniciens if i['position'] == -1] if session['pos'] == 1 else [i for i in techniciens if i['position'] == -2 and i['at'] == session['dep'].lower()], session=session)
         else:

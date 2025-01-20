@@ -97,7 +97,7 @@
                         <label for="description">Description du Problème:</label>
                         <textarea id="description" name="description" placeholder="Décrivez le problème" rows="4" disabled>{{ issue['description'] }}</textarea>
                     </div>
-                    {% if pos and session['dep'] == issue['departement'] and issue['valid'] == 0 %}
+                    {% if pos and session['dep'].lower() == issue['departement'] and issue['valid'] == 0 %}
                         <div class="form-group">
                             <label for="technicien">Affecter un technicien:</label>
                             <select id="technicien" name="technicien" required>
