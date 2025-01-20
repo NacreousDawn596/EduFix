@@ -140,7 +140,7 @@ def show_demands():
     status = {"en attente": "= 0", "en cours": "= 1", "traitees": "= 3", "non planifier": "IN ('0','1')", "planifier": "= 2", None: "IS NOT NULL"}[request.args.get('status')]
     typpe = {'infrastructures': "= 1", 'ateliers': "= 2", None: "IS NOT NULL"}[request.args.get('type')]
     if "email" in session:
-        if session['position'] == "technicien":
+        if session['pos'] <= -1:
             issues = query_db(f'SELECT * FROM issues WHERE technicien = ? AND valid {status}', [session['username']], one=False, file='issues.db')
         elif session['position'] == "responsable":
             issues = query_db(f"SELECT * FROM issues WHERE valid {status} AND typpe {typpe}", one=False, file='issues.db')
