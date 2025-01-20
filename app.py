@@ -62,7 +62,7 @@ def update_db(query, file="", args=()):
 techniciens = query_db(f'SELECT * FROM users WHERE position IN (-1, -2)', one=False, file='users.db')
 
 def allowed_file(filename):
-    ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
+    ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'webp'])
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS, filename.rsplit('.', 1)[-1].lower()
 
 @app.route('/', methods=['GET', 'POST'])
@@ -124,6 +124,8 @@ def new_demand():
                     filename = f"{time.time()}.{extension}"
                     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                     print(filename)
+                else:
+                    filename = ""
             else:
                 filename = ""        
             update_db('INSERT INTO issues VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', args=[str(uuid.uuid4()).split("-")[0], session['email'], session['phonenum'], datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), request.form.get('departement'), request.form.get('salle'), request.form.get('typeProbleme'), request.form.get('description'), filename, session['username'], 0, "", "", 1 if session['pos'] == 0 else 2], file='issues.db')
