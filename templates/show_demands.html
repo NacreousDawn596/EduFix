@@ -54,7 +54,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for issue in issues %}
+                                {% for issue in issues[::-1] %}
                                 <tr class="odd:bg-white even:bg-gray-100">
                                     <td class="px-5 py-2 border text-blue-600 underline cursor-pointer" onclick="window.location.href = '/demandes?id=' + '{{ issue['uuid'] }}'">{{ issue['uuid'] }}</td>
                                     <td class="px-5 py-2 border text-center">{{ issue['sender'] }}</td>
