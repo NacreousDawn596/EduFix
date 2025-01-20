@@ -84,7 +84,7 @@ def login():
             session['position'] = ranks[user['position']]
             session['phonenum'] = user['phonenum']
             session['session_id'] = session_id
-            session['dep'].lower() = user['dep']
+            session['dep'] = user['dep']
             session['current_issue'] = ""
             
             logging.debug(f"User {email} logged in successfully.")
