@@ -59,7 +59,7 @@ def update_db(query, file="", args=()):
     except sqlite3.Error as e:
         logging.error(f"Database error: {e}")
 
-techniciens = query_db(f'SELECT * FROM issues WHERE position IN (-1, -2)', one=False, file='issues.db')
+techniciens = query_db(f'SELECT * FROM users WHERE position IN (-1, -2)', one=False, file='users.db')
 
 def allowed_file(filename):
     ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
