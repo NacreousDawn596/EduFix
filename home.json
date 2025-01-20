@@ -2,33 +2,38 @@
     "administration": [
         [
             "Suivre les demandes (infrastructures)",
-            ["Suivre les demandes en cours", "/show_demands?status=en cours"],
-            ["Suivre les demandes en attente", "/show_demands?status=en attente"],
-            ["Suivre les demandes traitees", "/show_demands?status=traitees"]
+            ["Suivre les demandes en cours", "/show_demands?status=en cours&type=infrastructures"],
+            ["Suivre les demandes en attente", "/show_demands?status=en attente&type=infrastructures"],
+            ["Suivre les demandes traitees", "/show_demands?status=traitees&type=infrastructures"]
         ],
         [
             "Suivre les demandes (ateliers)",
-            ["Suivre les demandes en cours", "/show_demands?status=en cours"],
-            ["Suivre les demandes en attente", "/show_demands?status=en attente"],
-            ["Suivre les demandes traitees", "/show_demands?status=traitees"]
+            ["Suivre les demandes en cours", "/show_demands?status=en cours&type=ateliers"],
+            ["Suivre les demandes en attente", "/show_demands?status=en attente&type=ateliers"],
+            ["Suivre les demandes traitees", "/show_demands?status=traitees&type=ateliers"]
         ]
     ],
 
     "chef": [
         [
-            "Suivre toutes les demandes (infrastructures)",
-            ["Suivre les demandes en cours", "/show_demands?status=en cours"],
-            ["Suivre les demandes en attente", "/show_demands?status=en attente"],
-            ["Suivre les demandes traitees", "/show_demands?status=traitees"]
+            "Gestion des commandes",
+            ["Creer une nouvelle demande", "/new_demand"],
+            ["Suivre mes demandes", "show_demands"]
+        ],
+        [
+            "Suivre toutes les demandes (ateliers)",
+            ["Suivre les demandes en cours", "/show_demands?status=en cours&type=ateliers"],
+            ["Suivre les demandes en attente", "/show_demands?status=en attente&type=ateliers"],
+            ["Suivre les demandes traitees", "/show_demands?status=traitees&type=ateliers"]
         ]
     ],
 
     "responsable": [
         [
             "Suivre toutes les demandes (infrastructures)",
-            ["Suivre les demandes en cours", "/show_demands?status=en cours"],
-            ["Suivre les demandes en attente", "/show_demands?status=en attente"],
-            ["Suivre les demandes traitees", "/show_demands?status=traitees"]
+            ["Suivre les demandes en cours", "/show_demands?status=en cours&type=infrastructures"],
+            ["Suivre les demandes en attente", "/show_demands?status=en attente&type=infrastructures"],
+            ["Suivre les demandes traitees", "/show_demands?status=traitees&type=infrastructures"]
         ]
     ],
 

@@ -125,7 +125,7 @@ def new_demand():
                     print(filename)
             else:
                 filename = ""        
-            update_db('INSERT INTO issues VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', args=[str(uuid.uuid4()).split("-")[0], session['email'], session['phonenum'], datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), request.form.get('departement'), request.form.get('salle'), request.form.get('typeProbleme'), request.form.get('description'), filename, session['username'], 0, "", ""], file='issues.db')
+            update_db('INSERT INTO issues VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', args=[str(uuid.uuid4()).split("-")[0], session['email'], session['phonenum'], datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), request.form.get('departement'), request.form.get('salle'), request.form.get('typeProbleme'), request.form.get('description'), filename, session['username'], 0, "", "", 1 if session['pos'] == 0 else 2], file='issues.db')
             # return redirect(url_for('home'))
             return jsonify({'success': True, 'newPath': url_for('home')})
         return render_template('new_demand.html', username=session.get('username'), email=session.get('email'), side_panel=side_panel[session['position']])
@@ -135,13 +135,14 @@ def new_demand():
 @app.route("/show_demands", methods=['GET', 'POST'])
 def show_demands():
     status = {"en attente": "= 0", "en cours": "= 1", "traitees": "= 3", "non planifier": "IN ('0','1')", "planifier": "= 2", None: "IS NOT NULL"}[request.args.get('status')]
+    typpe = {'infrastructures': "= 1", 'ateliers': "= 2", None: "IS NOT NULL"}[request.args.get('type')]
     if "email" in session:
         if session['position'] == "technicien":
             issues = query_db(f'SELECT * FROM issues WHERE technicien = ? AND valid {status}', [session['username']], one=False, file='issues.db')
         elif session['position'] == "responsable":
-            issues = query_db(f"SELECT * FROM issues WHERE valid {status} AND sender NOT LIKE '%Technicien%'", one=False, file='issues.db')
+            issues = query_db(f"SELECT * FROM issues WHERE valid {status} AND type {typpe}", one=False, file='issues.db')
         elif session['position'] == "chef":
-            issues = query_db(f"SELECT * FROM issues WHERE departement = ? AND valid {status} AND sender LIKE '%Technicien%'", [session['dep']], one=False, file='issues.db')
+            issues = query_db(f"SELECT * FROM issues WHERE departement = ? AND valid {status} AND type {typpe}", [session['dep']], one=False, file='issues.db')
         elif session['position'] == "prof":
             issues = query_db(f'SELECT * FROM issues WHERE email = ? AND valid {status}', [session['email']], one=False, file='issues.db')
         else:
