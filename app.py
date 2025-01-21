@@ -128,7 +128,7 @@ def new_demand():
                     filename = ""
             else:
                 filename = ""        
-            update_db('INSERT INTO issues VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', args=[str(uuid.uuid4()).split("-")[0], session['email'], session['phonenum'], datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), request.form.get('departement'), request.form.get('salle'), request.form.get('typeProbleme'), request.form.get('description'), filename, session['username'], 0, "", "", 1 if session['pos'] == 1 else 2], file='issues.db')
+            update_db('INSERT INTO issues VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', args=[str(uuid.uuid4()).split("-")[0], session['email'], session['phonenum'], datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), request.form.get('departement'), request.form.get('salle'), request.form.get('typeProbleme'), request.form.get('description'), filename, session['username'], 0, "", "", 1 if session['pos'] == 0 else 2], file='issues.db')
             # return redirect(url_for('home'))
             return jsonify({'success': True, 'newPath': url_for('home')})
         return render_template('new_demand.html', username=session.get('username'), email=session.get('email'), side_panel=side_panel[session['position']])
